@@ -35,12 +35,12 @@ Lista todos os registros
 ### - consultar
 Consulta registros com base nos parâmetros `cpf`, `dataCriacaoDe` e  `dataCriacaoAte`
 
-`http://localhost:3000/historico/consultar?cpf=123.456.789-00&dataCriacaoDe=2023-06-01&dataCriacaoAte=2023-07-31 `
+`http://localhost:3000/historico/consultar?cpf=123.456.789-00&dataCriacaoDe=2023-06-01&dataCriacaoAte=2023-07-31`
 
 ### - consultartrintadias
 Consulta registros com base nos parâmetros `cpf` e com data de criação nos últimos 30 dias
 
-`http://localhost:3000/historico/consultartrintadias?cpf=123.456.789-00 `
+`http://localhost:3000/historico/consultartrintadias?cpf=123.456.789-00`
 
 ### - incluir
 Inclui registros
@@ -55,7 +55,7 @@ Edita o registro com base no CPF informado
 ### - excluir
 Exclui o registro com base no CPF informado
 
-`http://localhost:3000/historico/excluir/123.456.789-00 `
+`http://localhost:3000/historico/excluir/123.456.789-00`
 
 ## Recursos disponíves
 
