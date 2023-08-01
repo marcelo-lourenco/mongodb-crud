@@ -1,3 +1,8 @@
+/**
+ * Módulo para representar um objeto Histórico com informações de um registro histórico.
+ * @module models/historico
+ */
+
 import { ObjectId } from 'mongodb';
 
 /**

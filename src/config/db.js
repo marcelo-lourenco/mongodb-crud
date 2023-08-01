@@ -1,3 +1,8 @@
+/**
+ * Módulo para conectar ao banco de dados MongoDB.
+ * @module db/connectDB
+ */
+
 import { MongoClient } from 'mongodb';
 import { config } from 'dotenv';
 

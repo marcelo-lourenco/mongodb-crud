@@ -1,5 +1,10 @@
 import express, { json } from 'express';
 import { config } from 'dotenv';
+/**
+ * Módulo que inicia o servidor Express e define as rotas para o aplicativo.
+ * @module app
+ */
+
 import historicoRoutes from './src/routes/historicoRoutes.js';
 
 config();
@@ -20,5 +25,5 @@ app.use('/historico', historicoRoutes);
  * @returns {void}
  */
 app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`Servidor ouvindo na porta ${PORT}`);
 });

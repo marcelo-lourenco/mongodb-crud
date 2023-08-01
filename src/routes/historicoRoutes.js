@@ -1,4 +1,5 @@
 /**
+ * Módulo para lidar com as rotas relacionadas ao histórico.
  * @module routes/historico
  */
 

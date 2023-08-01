@@ -1,3 +1,8 @@
+/**
+ * Módulo que contém controladores para manipular os registros da collection "historico".
+ * @module controllers/historicoControllers
+ */
+
 import connectDB from '../config/db.js';
 import Historico from '../models/historico.js';
 
