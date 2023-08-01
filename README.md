@@ -4,7 +4,7 @@ Este é um exemplo de aplicativo CRUD em Node.js usando MongoDB.
 
 ## Instalação
 
-`npm install`
+    `npm install`
 
 ## Configuração
 
@@ -21,9 +21,11 @@ Informar as variáveis do seu ambiente
 
 ## Execução
 
-`node server.js`
+    `node server.js`
 
-## Utilização `http://localhost:3000/historico/`
+## Utilização
+
+    `http://localhost:3000/historico/`
 
 ## Rotas
 
