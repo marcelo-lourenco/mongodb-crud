@@ -1,0 +1,408 @@
+{
+	"info": {
+		"_postman_id": "393c4024-3fde-4168-8e0d-e6e58e37b2d7",
+		"name": "mongodb-crud",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8521432"
+	},
+	"item": [
+		{
+			"name": "listar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/historico/listar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"historico",
+						"listar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consultar",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function formatDate(date) {\r",
+							"  const year = date.getFullYear();\r",
+							"  const month = String(date.getMonth() + 1).padStart(2, '0');\r",
+							"  const day = String(date.getDate()).padStart(2, '0');\r",
+							"  return `${year}-${month}-${day}`;\r",
+							"}\r",
+							"\r",
+							"function data30DiasAtras() {\r",
+							"  const today = new Date();\r",
+							"  const thirtyDaysAgo = new Date(today);\r",
+							"  thirtyDaysAgo.setDate(today.getDate() - 30);\r",
+							"  return formatDate(thirtyDaysAgo);\r",
+							"}\r",
+							"\r",
+							"pm.collectionVariables.set(\"data30DiasAtras\", data30DiasAtras());\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/historico/consultar?cpf=700.022.053-86&dataCriacaoDe=2023-06-01&dataCriacaoAte=2023-07-31",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"historico",
+						"consultar"
+					],
+					"query": [
+						{
+							"key": "cpf",
+							"value": "700.022.053-86"
+						},
+						{
+							"key": "dataCriacaoDe",
+							"value": "2023-06-01"
+						},
+						{
+							"key": "dataCriacaoAte",
+							"value": "2023-07-31"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consultar-trinta-dias",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/historico/consultartrintadias?cpf=700.022.053-86",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"historico",
+						"consultartrintadias"
+					],
+					"query": [
+						{
+							"key": "cpf",
+							"value": "700.022.053-86"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "incluir",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"const reqBody = JSON.parse(request.data); \r",
+							"//const cpf = reqBody.cpf;\r",
+							"//const dataCriacao = reqBody.dataCriacao;\r",
+							"\r",
+							"console.log(reqBody.cpf);\r",
+							"console.log(reqBody.dataCriacao);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cpf\": \"{{cpf}}\",\r\n  \"nome\": \"{{nome}}\",\r\n  \"dataCriacao\": \"{{data}}\",\r\n  \"servicosConsulta\": [\r\n    {\r\n      \"codigoServico\": {{codSrv1}},\r\n      \"nomeServico\": \"Serviço 1\",\r\n      \"retornoServico\": [\r\n        {\r\n          \"dominioTipoRetorno\": \"SUCESSO\",\r\n          \"parametrosServico\": {\r\n            \"chave1\": \"{{codChv1}}\",\r\n            \"chave2\": \"{{codChv2}}\"\r\n          },\r\n          \"conteudo\": {\r\n            \"campo1\": \"{{codCmp1}}\",\r\n            \"campo2\": \"{{codCmp2}}\"\r\n          }\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/historico/incluir",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"historico",
+						"incluir"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "editar",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"{{nome}}\",\r\n  \"dataCriacao\": \"{{data}}\",\r\n  \"servicosConsulta\": [\r\n    {\r\n      \"codigoServico\": {{codSrv1}},\r\n      \"nomeServico\": \"Serviço 1\",\r\n      \"retornoServico\": [\r\n        {\r\n          \"dominioTipoRetorno\": \"SUCESSO\",\r\n          \"parametrosServico\": {\r\n            \"chave1\": \"{{codChv1}}\",\r\n            \"chave2\": \"{{codChv2}}\"\r\n          },\r\n          \"conteudo\": {\r\n            \"campo1\": \"{{codCmp1}}\",\r\n            \"campo2\": \"{{codCmp2}}\"\r\n          }\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/historico/editar/668.138.710-13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"historico",
+						"editar",
+						"668.138.710-13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "excluir",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/historico/excluir/668.138.710-13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"historico",
+						"excluir",
+						"668.138.710-13"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"",
+					"pm.collectionVariables.set(\"cpf\", gerarCPF());",
+					"pm.collectionVariables.set(\"data\", gerarData());",
+					"pm.collectionVariables.set(\"nome\", gerarNome());",
+					"pm.collectionVariables.set(\"codSrv1\", gerarNumeroAleatorio(999));",
+					"pm.collectionVariables.set(\"codSrv2\", gerarNumeroAleatorio(999));",
+					"pm.collectionVariables.set(\"codChv1\", gerarNumeroAleatorio(99));",
+					"pm.collectionVariables.set(\"codChv2\", gerarNumeroAleatorio(99));",
+					"pm.collectionVariables.set(\"codCmp1\", gerarNumeroAleatorio(99));",
+					"pm.collectionVariables.set(\"codCmp2\", gerarNumeroAleatorio(99));",
+					"",
+					"",
+					"/**",
+					" * Função para gerar um CPF aleatório no formato \"XXX.XXX.XXX-XX\".",
+					" * @returns {string} O CPF gerado.",
+					" */",
+					"function gerarCPF() {",
+					"  const randomiza = n => Math.floor(Math.random() * n);",
+					"  const mod = (dividendo, divisor) => Math.floor(dividendo % divisor);",
+					"",
+					"  const n = 9;",
+					"  let cpf = '';",
+					"  for (let i = 0; i < 9; i++) cpf += randomiza(n).toString();",
+					"  const d1 = 11 - mod(",
+					"    cpf.split('').reduce((acc, digit, i) => acc + parseInt(digit) * (10 - i), 0) % 11,",
+					"    11",
+					"  );",
+					"  cpf += d1 >= 10 ? '0' : d1.toString();",
+					"  const d2 = 11 - mod(",
+					"    cpf.split('').reduce((acc, digit, i) => acc + parseInt(digit) * (11 - i), 0) % 11,",
+					"    11",
+					"  );",
+					"  cpf += d2 >= 10 ? '0' : d2.toString();",
+					"",
+					"  return cpf.replace(/(\\d{3})(\\d{3})(\\d{3})(\\d{2})/, '$1.$2.$3-$4');",
+					"}",
+					"",
+					"// ----------------------------------------",
+					"",
+					"/**",
+					" * Função para gerar uma data aleatória (ultimos 60 dias) no formato \"AAAA-MM-DD\".",
+					" * @returns {string} A data gerada.",
+					" */",
+					"function gerarData() {",
+					"  const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;",
+					"",
+					"  const hoje = new Date();",
+					"  const limiteInferior = new Date(hoje);",
+					"  limiteInferior.setDate(limiteInferior.getDate() - 60);",
+					"",
+					"  const dataAleatoria = new Date(randomInt(limiteInferior.getTime(), hoje.getTime()));",
+					"",
+					"  const ano = dataAleatoria.getFullYear();",
+					"  const mes = String(dataAleatoria.getMonth() + 1).padStart(2, '0');",
+					"  const dia = String(dataAleatoria.getDate()).padStart(2, '0');",
+					"",
+					"  return `${ano}-${mes}-${dia}`;",
+					"}",
+					"",
+					"// ----------------------------------------",
+					"",
+					"/**",
+					" * Função para gerar um nome aleatório.",
+					" * @returns {string} O nome gerado.",
+					" */",
+					"function gerarNome() {",
+					"  const nomes = [",
+					"    'João', 'Maria', 'Pedro', 'Ana', 'Lucas', 'Mariana', 'Fernanda', 'Rafael', 'Camila',",
+					"    'Gustavo', 'Sofia', 'Felipe', 'Bianca', 'Daniel', 'Carolina', 'Gabriel', 'Laura',",
+					"    'Eduardo', 'Juliana', 'Rodrigo', 'Larissa', 'Miguel', 'Beatriz', 'Vitor', 'Isabela',",
+					"    'Matheus', 'Letícia', 'Caio', 'Lorena'",
+					"  ];",
+					"",
+					"  const sobrenomes = [",
+					"    'Silva', 'Santos', 'Oliveira', 'Souza', 'Ferreira', 'Almeida', 'Pereira', 'Costa',",
+					"    'Carvalho', 'Gomes', 'Rodrigues', 'Martins', 'Rocha', 'Ramos', 'Lima', 'Alves',",
+					"    'Monteiro', 'Mendes', 'Barbosa', 'Freitas', 'Castro', 'Melo', 'Araújo', 'Fernandes',",
+					"    'Ribeiro', 'Campos', 'Cardoso', 'Neves', 'Pinto'",
+					"  ];",
+					"",
+					"  const nomeAleatorio = nomes[Math.floor(Math.random() * nomes.length)];",
+					"  const sobrenomeAleatorio = sobrenomes[Math.floor(Math.random() * sobrenomes.length)];",
+					"",
+					"  return `${nomeAleatorio} ${sobrenomeAleatorio}`;",
+					"}",
+					"",
+					"// -----------------------------------------",
+					"",
+					"/**",
+					" * Função para gerar um número aleatório entre 1 e o valor máximo fornecido.",
+					" * @param {number} max - O valor máximo para o número aleatório.",
+					" * @returns {string} O número aleatório gerado.",
+					" */",
+					"function gerarNumeroAleatorio(max) {",
+					"  return String(Math.floor(Math.random() * max) + 1);",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "cpf",
+			"value": ""
+		},
+		{
+			"key": "data",
+			"value": ""
+		},
+		{
+			"key": "nome",
+			"value": ""
+		},
+		{
+			"key": "numAleatorio",
+			"value": ""
+		},
+		{
+			"key": "codSrv1",
+			"value": ""
+		},
+		{
+			"key": "codSrv2",
+			"value": ""
+		},
+		{
+			"key": "codChv1",
+			"value": ""
+		},
+		{
+			"key": "codChv2",
+			"value": ""
+		},
+		{
+			"key": "codCmp1",
+			"value": ""
+		},
+		{
+			"key": "codCmp2",
+			"value": ""
+		},
+		{
+			"key": "data30DiasAtras",
+			"value": ""
+		}
+	]
+}
