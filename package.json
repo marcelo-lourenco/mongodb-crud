@@ -1,7 +1,7 @@
 {
-  "name": "historico-servico",
+  "name": "crud-mongodb",
   "version": "1.0.0",
-  "description": "Aplicação Node.js - Express - MongoDB - Dotenv",
+  "description": "CRUD - Node.js - Express - MongoDB - Dotenv",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -32,5 +32,5 @@
   "bugs": {
     "url": "https://github.com/Marcelo-Lourenco/mongodb-crud/issues"
   },
-  "homepage": "https://github.com/Marcelo-Lourenco/mongodb-crud#readme"
+  "homepage": "https://github.com/Marcelo-Lourenco/mongodb-crud/blob/master/README.md"
 }

@@ -1,4 +1,4 @@
-# Exemplo da aplicação Node.js - Express - MongoDB - Dotenv
+# CRUD - Node.js - Express - MongoDB - Dotenv
 
 Este é um exemplo de aplicativo CRUD em Node.js usando MongoDB.
 
@@ -23,46 +23,43 @@ Informar as variáveis do seu ambiente
 
 `node server.js`
 
-## Utilização
-
-`http://localhost:3000/historico/`
+## Utilização `http://localhost:3000/historico/`
 
 ## Rotas
 
-### /listar
+### - listar
 
-Lista todos os registros
- `http://localhost:3000/historico/listar`
+    Lista todos os registros`http://localhost:3000/historico/listar`
 
-### /consultar
+### - consultar
 
-Consulta registros com base nos parâmetros `cpf`, `dataCriacaoDe` e  `dataCriacaoAte`
+    Consulta registros com base nos parâmetros`cpf`, `dataCriacaoDe` e  `dataCriacaoAte`
 
-`http://localhost:3000/historico/consultar?cpf=123.456.789-00&dataCriacaoDe=2023-06-01&dataCriacaoAte=2023-07-31 `
+    `http://localhost:3000/historico/consultar?cpf=123.456.789-00&dataCriacaoDe=2023-06-01&dataCriacaoAte=2023-07-31 `
 
-### /consultartrintadias
+### - consultartrintadias
 
-Consulta registros com base nos parâmetros `cpf` e com data de criação nos últimos 30 dias
+    Consulta registros com base nos parâmetros`cpf` e com data de criação nos últimos 30 dias
 
-`http://localhost:3000/historico/consultartrintadias?cpf=123.456.789-00 `
+    `http://localhost:3000/historico/consultartrintadias?cpf=123.456.789-00 `
 
-### /incluir
+### - incluir
 
-Inclui registros
+    Inclui registros
 
-`http://localhost:3000/historico/incluir`
+    `http://localhost:3000/historico/incluir`
 
-### **/editar**
+### **- editar**
 
-Edita o registro com base no CPF informado
+    Edita o registro com base no CPF informado
 
-`http://localhost:3000/historico/editar/123.456.789-00`
+    `http://localhost:3000/historico/editar/123.456.789-00`
 
-### /excluir
+### - excluir
 
-Exclui o registro com base no CPF informado
+    Exclui o registro com base no CPF informado
 
-`http://localhost:3000/historico/excluir/123.456.789-00 `
+    `http://localhost:3000/historico/excluir/123.456.789-00 `
 
 ## Recursos disponíves
 
