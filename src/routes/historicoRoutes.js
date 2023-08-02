@@ -43,13 +43,11 @@ router.get('/consultartrintadias', consultarHistoricoTrintaDias);
  */
 router.post('/incluir', incluirHistorico);
 
-
 /**
  * @route PUT /editar
  * @description Rota para editar um registro histórico por CPF.
  * @access Public
  */
-// 
 router.put('/editar/:cpf', editarHistorico);
 
 /**

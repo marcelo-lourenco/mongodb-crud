@@ -1,0 +1,506 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CRUD - Node.js com Express, MongoDB e Dotenv",
+    "version": "1.0.0",
+    "description": "API para lidar com registros de histórico."
+  },
+  "paths": {
+    "${basePath}/listar": {
+      "get": {
+        "summary": "Lista todos os registros da coleção histórico.",
+        "description": "Consulta todos os registros da coleção histórico e retorna uma lista de objetos.",
+        "tags": [
+          "Histórico"
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso, retorna a lista de históricos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/responseConsultar"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "${basePath}/consultar": {
+      "get": {
+        "summary": "Consulta registros com base nos parâmetros (cpf, dataCriacaoDe e dataCriacaoAte).",
+        "description": "Consulta registros com base nos parâmetros fornecidos e retorna uma lista de objetos.",
+        "tags": [
+          "Histórico"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "cpf",
+            "description": "O CPF usado como filtro de consulta (999.999.999-99).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "dataCriacaoDe",
+            "description": "Data de criação mínima para filtrar registros.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "dataCriacaoAte",
+            "description": "Data de criação máxima para filtrar registros.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso, retorna a lista de históricos filtrados.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/responseConsultar"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "${basePath}/consultartrintadias": {
+      "get": {
+        "summary": "Consulta registros históricos com base no CPF fornecido e que foram criados nos últimos 30 dias.",
+        "description": "Consulta registros históricos com base no CPF fornecido e que foram criados nos últimos 30 dias.",
+        "tags": [
+          "Histórico"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "cpf",
+            "description": "O CPF usado como filtro de consulta (999.999.999-99).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso, retorna a lista de históricos filtrados.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/responseConsultar"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "${basePath}/incluir": {
+      "post": {
+        "summary": "Inclui um novo registro no histórico.",
+        "description": "Inclui um novo registro no histórico com as informações fornecidas.",
+        "tags": [
+          "Histórico"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/bodyIncluir"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso, retorna o resultado da operação de inclusão.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "insertedId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "${basePath}/editar/{cpf}": {
+      "put": {
+        "summary": "Edita um registro do histórico por CPF.",
+        "description": "Edita um registro do histórico com base no CPF fornecido e atualiza as informações.",
+        "tags": [
+          "Histórico"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cpf",
+            "description": "O CPF do registro a ser editado (999.999.999-99).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/bodyEditar"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso, retorna uma mensagem de sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "${basePath}/excluir/{cpf}": {
+      "delete": {
+        "summary": "Exclui um registro do histórico com base no CPF fornecido.",
+        "description": "Exclui um registro do histórico com base no CPF fornecido.",
+        "tags": [
+          "Histórico"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "cpf",
+            "description": "O CPF do registro a ser excluído (999.999.999-99).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso, retorna uma mensagem de sucesso.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "responseConsultar": {
+        "type": "object",
+        "properties": {
+          "cpf": {
+            "type": "string"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "dataCriacao": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "servicosConsulta": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "codigoServico": {
+                  "type": "integer"
+                },
+                "nomeServico": {
+                  "type": "string"
+                },
+                "retornoServico": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "dominioTipoRetorno": {
+                        "type": "string",
+                        "enum": [
+                          "SUCESSO",
+                          "ERRO"
+                        ]
+                      },
+                      "parametrosServico": {
+                        "type": "object",
+                        "properties": {
+                          "chave1": {
+                            "type": "string"
+                          },
+                          "chave2": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "conteudo": {
+                        "type": "object",
+                        "properties": {
+                          "campo1": {
+                            "type": "string"
+                          },
+                          "campo2": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "required": [
+                      "dominioTipoRetorno",
+                      "parametrosServico",
+                      "conteudo"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "codigoServico",
+                "nomeServico",
+                "retornoServico"
+              ]
+            }
+          }
+        },
+        "required": [
+          "cpf",
+          "nome",
+          "dataCriacao",
+          "servicosConsulta"
+        ]
+      },
+      "bodyIncluir": {
+        "type": "object",
+        "properties": {
+          "cpf": {
+            "type": "string"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "dataCriacao": {
+            "type": "string",
+            "format": "date"
+          },
+          "servicosConsulta": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "codigoServico": {
+                  "type": "integer"
+                },
+                "nomeServico": {
+                  "type": "string"
+                },
+                "retornoServico": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "dominioTipoRetorno": {
+                        "type": "string",
+                        "enum": [
+                          "SUCESSO",
+                          "ERRO"
+                        ]
+                      },
+                      "parametrosServico": {
+                        "type": "object",
+                        "properties": {
+                          "chave1": {
+                            "type": "string"
+                          },
+                          "chave2": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "conteudo": {
+                        "type": "object",
+                        "properties": {
+                          "campo1": {
+                            "type": "string"
+                          },
+                          "campo2": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "required": [
+                      "dominioTipoRetorno",
+                      "parametrosServico",
+                      "conteudo"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "codigoServico",
+                "nomeServico",
+                "retornoServico"
+              ]
+            }
+          }
+        },
+        "required": [
+          "cpf",
+          "nome",
+          "dataCriacao",
+          "servicosConsulta"
+        ]
+      },
+      "bodyEditar": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          },
+          "dataCriacao": {
+            "type": "string",
+            "format": "date"
+          },
+          "servicosConsulta": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "codigoServico": {
+                  "type": "integer"
+                },
+                "nomeServico": {
+                  "type": "string"
+                },
+                "retornoServico": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "dominioTipoRetorno": {
+                        "type": "string",
+                        "enum": [
+                          "SUCESSO",
+                          "ERRO"
+                        ]
+                      },
+                      "parametrosServico": {
+                        "type": "object",
+                        "properties": {
+                          "chave1": {
+                            "type": "string"
+                          },
+                          "chave2": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "conteudo": {
+                        "type": "object",
+                        "properties": {
+                          "campo1": {
+                            "type": "string"
+                          },
+                          "campo2": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "required": [
+                      "dominioTipoRetorno",
+                      "parametrosServico",
+                      "conteudo"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "codigoServico",
+                "nomeServico",
+                "retornoServico"
+              ]
+            }
+          }
+        },
+        "required": [
+          "cpf",
+          "nome",
+          "dataCriacao",
+          "servicosConsulta"
+        ]
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-# CRUD - Node.js - Express - MongoDB - Dotenv
+# CRUD - Node.js com Express, MongoDB, Dotenv e Swagger
 
 Este é um exemplo de aplicativo CRUD em Node.js usando MongoDB.
 
@@ -20,42 +20,58 @@ Informar as variáveis do seu ambiente
 * `MONGODB_PASS=senha`
 
 ## Execução
+
 `node server.js`
 
 ## Utilização
+
 `http://localhost:3000/historico/`
 
 ## Rotas
 
 ### - listar
+
 Lista todos os registros
 
 `http://localhost:3000/historico/listar`
 
 ### - consultar
+
 Consulta registros com base nos parâmetros `cpf`, `dataCriacaoDe` e  `dataCriacaoAte`
 
 `http://localhost:3000/historico/consultar?cpf=123.456.789-00&dataCriacaoDe=2023-06-01&dataCriacaoAte=2023-07-31`
 
 ### - consultartrintadias
+
 Consulta registros com base nos parâmetros `cpf` e com data de criação nos últimos 30 dias
 
 `http://localhost:3000/historico/consultartrintadias?cpf=123.456.789-00`
 
 ### - incluir
+
 Inclui registros
 
 `http://localhost:3000/historico/incluir`
 
 ### - editar
+
 Edita o registro com base no CPF informado
 
 `http://localhost:3000/historico/editar/123.456.789-00`
 
 ### - excluir
+
 Exclui o registro com base no CPF informado
 
-`http://localhost:3000/historico/excluir/123.456.789-00`
+`http://localhost:3000/historico/excluir/123.456.789-00
+`
+
+## Documentação Swagger
+
+### - api-docs
+
+`http://localhost:3000/api-docs/`
+
 
 ## Recursos disponíves
 

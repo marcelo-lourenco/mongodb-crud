@@ -1,29 +1,34 @@
-import express, { json } from 'express';
-import { config } from 'dotenv';
-/**
- * Módulo que inicia o servidor Express e define as rotas para o aplicativo.
- * @module app
- */
+// server.js
 
+import express from 'express';
+import { json } from 'express';
+import { swaggerPath } from './docs/swagger/swagger-path.js';
 import historicoRoutes from './src/routes/historicoRoutes.js';
 
-config();
-const app = express();
+const expressApp = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(json());
+expressApp.use(json());
 
 // Rotes
-app.use('/historico', historicoRoutes);
+expressApp.use('/historico', historicoRoutes);
+
+// Chame a função swaggerPath e passe o objeto do aplicativo Express
+swaggerPath(expressApp);
 
 /**
  * Inicia o servidor e o faz ouvir na porta especificada.
  * @function
- * @name listen
- * @param {number} PORT - O número da porta na qual o servidor deve ouvir.
+ * @name startServer
+ * @param {number} port - O número da porta na qual o servidor deve ouvir.
  * @param {() => void} callback - A função de retorno a ser executada após o início bem-sucedido do servidor.
  * @returns {void}
  */
-app.listen(PORT, () => {
-  console.log(`Servidor ouvindo na porta ${PORT}`);
-});
+function startServer(port, callback) {
+  expressApp.listen(port, () => {
+    console.log(`Servidor ouvindo na porta ${port}`);
+    if (callback) callback();
+  });
+}
+
+startServer(PORT);
